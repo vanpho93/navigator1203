@@ -24,10 +24,11 @@ class SignIn extends Component {
 
 class Account extends Component {
     render() {
+        const { goBack } = this.props.navigation;
         return (
             <View style={styles.accountContainer}>
                 <Text style={styles.titleText}>Account Component</Text>
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => goBack()}>
                     <Text style={styles.buttonText}>Sign Out</Text>
                 </TouchableOpacity>
             </View>
@@ -65,7 +66,11 @@ const styles = StyleSheet.create({
     }
 });
 
-export const Stack = StackNavigator({
-    SignIn: { screen: SignIn },
-    Account: { screen: Account }
-});
+export const Stack = StackNavigator
+(
+    {
+        SignIn: { screen: SignIn },
+        Account: { screen: Account }
+    },
+    { headerMode: 'none' }
+);
