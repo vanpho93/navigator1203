@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
-export class Stack extends Component {
-    render() {
-        return <Account />;
-    }
-}
+// export class Stack extends Component {
+//     render() {
+//         return <Account />;
+//     }
+// }
 
 class SignIn extends Component {
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.signInContainer}>
                 <Text style={styles.titleText}>SignIn Component</Text>
-                <TouchableOpacity style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate('Account')}>
                     <Text style={styles.buttonText}>Sign In</Text>
                 </TouchableOpacity>
             </View>
@@ -44,7 +46,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#EF4F21'
+        backgroundColor: '#63A62A'
     },
     buttonContainer: {
         backgroundColor: '#117ACC',
@@ -61,4 +63,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold'
     }
+});
+
+export const Stack = StackNavigator({
+    SignIn: { screen: SignIn },
+    Account: { screen: Account }
 });
