@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { TabNavigator } from 'react-navigation';
+import signin from '../images/signin.png';
+import account from '../images/account.png';
+import menu from '../images/menu.png';
+import contact from '../images/contact.png';
 
 class SignIn extends Component {
     render() {
@@ -108,12 +112,25 @@ const styles = StyleSheet.create({
     }
 });
 
+const tabBarOption = {
+    navigationOptions: ({ navigation }) => ({
+        tabBarIcon: () => {
+            const { routeName } = navigation.state;
+            if (routeName === 'SignIn') return <Image source={signin} />
+            if (routeName === 'Account') return <Image source={account} />
+            if (routeName === 'Menu') return <Image source={menu} />
+            return <Image source={contact} />
+        }
+    })
+}
+
 export const Tab = TabNavigator
 (
     {
-        SignIn: { screen: SignIn },
+        SignIn: { screen: SignIn, tabBarIcon: signin },
         Account: { screen: Account },
         Contact: { screen: Contact },
         Menu: { screen: Menu },
-    }
+    },
+    tabBarOption
 );
