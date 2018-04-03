@@ -21,11 +21,12 @@ class SignIn extends Component {
 
 class Menu extends Component {
     render() {
+        const { navigate } = this.props.navigation;
         return (
             <View style={styles.accountContainer}>
                 <Text style={styles.titleText}>Menu Component</Text>
-                <TouchableOpacity style={styles.buttonContainer}>
-                    <Text style={styles.buttonText}>Sign Out</Text>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigate('DrawerClose')}>
+                    <Text style={styles.buttonText}>Close Menu</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -67,4 +68,7 @@ export const Drawer = DrawerNavigator
     {
         SignIn: { screen: SignIn },
     },
+    {
+        contentComponent: Menu 
+    }
 );
