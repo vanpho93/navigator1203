@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { StatusBar } from 'react-native';
 // import { ListWord } from './components/ListWord';
-// import { Stack } from './components/Stack';
+import { MainScreen } from './components/auth/MainScreen';
 // import { Drawer } from './components/Drawer';
-import { Tab } from './components/Tab';
+// import { Tab } from './components/Tab';
 
 StatusBar.setHidden(true);
 
 export default class App extends Component {
   render() {
-    return <Tab />;
+    return <MainScreen />;
   }
 }

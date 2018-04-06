@@ -2,12 +2,6 @@ import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
-// export class Stack extends Component {
-//     render() {
-//         return <Account />;
-//     }
-// }
-
 class SignIn extends Component {
     render() {
         const { navigate } = this.props.navigation;
