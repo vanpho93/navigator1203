@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator } from 'react-native';
+import { signIn } from '../../services/user.service';
 
 export class SignIn extends Component {
     constructor(props) {
@@ -8,9 +9,10 @@ export class SignIn extends Component {
         this.signIn = this.signIn.bind(this);
     }
     signIn() {
-        this.setState({ loading: true });
-        const { navigate } = this.props.navigation;
-        setTimeout(() => navigate('Account'), 1000);
+        // this.setState({ loading: true });
+        // const { navigate } = this.props.navigation;
+        // setTimeout(() => navigate('Account'), 1000);
+        signIn('pho5@gmail.com', '123');
     }
     render() {
         return (
