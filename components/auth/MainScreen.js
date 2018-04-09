@@ -9,5 +9,5 @@ export const MainScreen = StackNavigator(
         Account: { screen: Account, path: '/account/:name/:email' },
         SignIn: { screen: SignIn },
     },
-    { headerMode: 'none' }
+    { headerMode: 'none', initialRouteName: 'Loading' }
 );

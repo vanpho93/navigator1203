@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, AsyncStorage } from 'react-native';
 
 export class Account extends Component {
     constructor(props) {
         super(props);
         this.signOut = this.signOut.bind(this);
     }
-    signOut() {
+    async signOut() {
         const { navigate } = this.props.navigation;
+        await AsyncStorage.removeItem('token');
         navigate('SignIn');
     }
     render() {
