@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { signInApi } from '../../services/user.service';
 
 export class SignIn extends Component {
@@ -15,9 +15,13 @@ export class SignIn extends Component {
     signIn() {
         const { navigate } = this.props.navigation;
         const { txtEmail, txtPassword } = this.state;
+        this.setState({ loading: true });
         signInApi(txtEmail, txtPassword)
         .then(user => navigate('Account', { email: user.email, name: user.name }))
-        .catch(error => console.log(error.message));
+        .catch(error => {
+            Alert.alert('Sign In Error', error.message);
+        })
+        .then(() => this.setState({ loading: false }));
     }
     render() {
         return (
