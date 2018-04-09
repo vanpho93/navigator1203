@@ -26,12 +26,15 @@ export class SignIn extends Component {
                 <TextInput
                     placeholder="Email"
                     style={styles.inputText}
+                    autoCapitalize="none"
                     onChangeText={text => this.setState({ txtEmail: text })}
                     underlineColorAndroid="transparent"    
                 />
                 <TextInput
                     placeholder="Password"
                     style={styles.inputText}
+                    secureTextEntry
+                    autoCapitalize="none"
                     onChangeText={text => this.setState({ txtPassword: text })}
                     underlineColorAndroid="transparent"    
                 />
