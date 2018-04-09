@@ -1,18 +1,23 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator } from 'react-native';
-import { signIn } from '../../services/user.service';
+import { signInApi } from '../../services/user.service';
 
 export class SignIn extends Component {
     constructor(props) {
         super(props);
-        this.state = { loading: false };
+        this.state = {
+            loading: false,
+            txtEmail: '',
+            txtPassword: ''
+        };
         this.signIn = this.signIn.bind(this);
     }
     signIn() {
-        // this.setState({ loading: true });
-        // const { navigate } = this.props.navigation;
-        // setTimeout(() => navigate('Account'), 1000);
-        signIn('pho5@gmail.com', '123');
+        const { navigate } = this.props.navigation;
+        const { txtEmail, txtPassword } = this.state;
+        signInApi(txtEmail, txtPassword)
+        .then(() => navigate('Account'))
+        .catch(error => console.log(error.message));
     }
     render() {
         return (
@@ -21,11 +26,13 @@ export class SignIn extends Component {
                 <TextInput
                     placeholder="Email"
                     style={styles.inputText}
+                    onChangeText={text => this.setState({ txtEmail: text })}
                     underlineColorAndroid="transparent"    
                 />
                 <TextInput
                     placeholder="Password"
                     style={styles.inputText}
+                    onChangeText={text => this.setState({ txtPassword: text })}
                     underlineColorAndroid="transparent"    
                 />
                 <TouchableOpacity style={styles.buttonContainer} onPress={this.signIn}>
