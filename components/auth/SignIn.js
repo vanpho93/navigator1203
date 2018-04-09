@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator, Alert, AsyncStorage } from 'react-native';
 import { signInApi } from '../../services/user.service';
 
 export class SignIn extends Component {
@@ -8,10 +8,11 @@ export class SignIn extends Component {
         this.state = {
             loading: false,
             txtEmail: '',
-            txtPassword: ''
+            txtPassword: '',
         };
         this.signIn = this.signIn.bind(this);
     }
+
     signIn() {
         const { navigate } = this.props.navigation;
         const { txtEmail, txtPassword } = this.state;
@@ -23,6 +24,7 @@ export class SignIn extends Component {
         })
         .then(() => this.setState({ loading: false }));
     }
+    
     render() {
         return (
             <View style={styles.signInContainer}>
