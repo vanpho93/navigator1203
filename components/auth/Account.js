@@ -11,11 +11,12 @@ export class Account extends Component {
         navigate('SignIn');
     }
     render() {
+        const { name, email } = this.props.navigation.state.params;
         return (
             <View style={styles.accountContainer}>
                 <Text style={styles.titleText}>Account Component</Text>
-                <Text style={styles.titleText}>Name: Teo Nguyen</Text>
-                <Text style={styles.titleText}>Email: teo@gmail.com</Text>
+                <Text style={styles.titleText}>Name: {name}</Text>
+                <Text style={styles.titleText}>Email: {email}</Text>
                 <TouchableOpacity style={styles.buttonContainer} onPress={this.signOut}>
                     <Text style={styles.buttonText}>Sign out</Text>
                 </TouchableOpacity>

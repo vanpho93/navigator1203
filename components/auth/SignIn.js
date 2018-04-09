@@ -16,7 +16,7 @@ export class SignIn extends Component {
         const { navigate } = this.props.navigation;
         const { txtEmail, txtPassword } = this.state;
         signInApi(txtEmail, txtPassword)
-        .then(() => navigate('Account'))
+        .then(user => navigate('Account', { email: user.email, name: user.name }))
         .catch(error => console.log(error.message));
     }
     render() {
