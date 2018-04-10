@@ -29,6 +29,16 @@ export class Chat extends Component {
                 ]
             });
         });
+
+        socket.on('CLIENT_JOIN', joinUsername => {
+            this.setState({
+                users: [joinUsername, ...this.state.users],
+                messages: [
+                    `***${joinUsername} da join phong chat`,
+                    ...this.state.messages
+                ]
+            });
+        });
     }
 
     sendMessageToServer() {
