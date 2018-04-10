@@ -8,7 +8,8 @@ export class Chat extends Component {
         super(props);
         this.state = {
             txtMessage: '',
-            messages: []
+            messages: [],
+            users: []
         };
         this.sendMessageToServer = this.sendMessageToServer.bind(this);
     }
@@ -16,6 +17,17 @@ export class Chat extends Component {
     componentDidMount() {
         socket.on('SERVER_SEND_MESSGAGE', data => {
             this.setState({ messages: [data, ...this.state.messages] });
+        });
+        this.setState({ users: this.props.navigation.state.params.users });
+        socket.on('CLIENT_LEAVE', leaveUsername => {
+            const newUsers = this.state.users.filter(username => username !== leaveUsername);
+            this.setState({
+                users: newUsers,
+                messages: [
+                    `${leaveUsername} da roi phong chat`,
+                    ...this.state.messages
+                ]
+            });
         });
     }
 
@@ -26,7 +38,7 @@ export class Chat extends Component {
     }
 
     render() {
-        const { users } = this.props.navigation.state.params;
+        const { users } = this.state;
         return (
             <View style={styles.chatContainer}>
                 <View style={styles.messagesContainer}>
