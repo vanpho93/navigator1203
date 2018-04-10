@@ -13,9 +13,9 @@ export class SignIn extends Component {
     signIn() {
         const { navigate } = this.props.navigation;
         const { txtUsername } = this.state;
-        socket.emit('CLIENT_SIGN_UP', txtUsername, isSuccess => {
-            if (!isSuccess) return Alert.alert('Sign In', 'Username da ton tai.');
-            navigate('Chat');
+        socket.emit('CLIENT_SIGN_UP', txtUsername, users => {
+            if (!users) return Alert.alert('Sign In', 'Username da ton tai.');
+            navigate('Chat', { users });
         }); 
     }
     

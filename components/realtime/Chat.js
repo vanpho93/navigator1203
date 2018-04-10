@@ -26,10 +26,13 @@ export class Chat extends Component {
     }
 
     render() {
+        const { users } = this.props.navigation.state.params;
         return (
             <View style={styles.chatContainer}>
                 <View style={styles.messagesContainer}>
-                    <Text>Messages</Text>
+                    <Text>Users</Text>
+                    { users.map(message => <Text key={Math.random()}>{message}</Text>) }
+                    <Text>Message</Text>
                     { this.state.messages.map(message => <Text key={Math.random()}>{message}</Text>) }
                 </View>
                 <View style={styles.controlContainer}>
