@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator, Alert, AsyncStorage } from 'react-native';
 import { signInApi } from '../../services/user.service';
-import io from 'socket.io-client';
+import { socket } from './Stack';
 
 export class Chat extends Component {
     constructor(props) {
@@ -10,19 +10,18 @@ export class Chat extends Component {
             txtMessage: '',
             messages: []
         };
-        this.socket = io.connect('https://chat1203.herokuapp.com/');
         this.sendMessageToServer = this.sendMessageToServer.bind(this);
     }
 
     componentDidMount() {
-        this.socket.on('SERVER_SEND_MESSGAGE', data => {
+        socket.on('SERVER_SEND_MESSGAGE', data => {
             this.setState({ messages: [data, ...this.state.messages] });
         });
     }
 
     sendMessageToServer() {
         const { txtMessage } = this.state;
-        this.socket.emit('CLIENT_SEND_MESSAGE', txtMessage);
+        socket.emit('CLIENT_SEND_MESSAGE', txtMessage);
         this.setState({ txtMessage: '' });
     }
 
