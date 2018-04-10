@@ -1,0 +1,13 @@
+{
+  "name": "server_socket",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Van Pho Nguyen <vanpho02@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^2.1.0"
+  },
+  "scripts": {
+    "start": "node index.js"
+  }
+}
