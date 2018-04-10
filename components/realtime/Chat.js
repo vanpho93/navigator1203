@@ -7,13 +7,23 @@ export class Chat extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            txtMessage: ''
+            txtMessage: '',
+            messages: []
         };
+        this.socket = io.connect('https://chat1203.herokuapp.com/');
+        this.sendMessageToServer = this.sendMessageToServer.bind(this);
     }
-    
+
     componentDidMount() {
-        const socket = io.connect('https://chat1203.herokuapp.com/');
-        socket.on('NUM', data => console.log(data));
+        this.socket.on('SERVER_SEND_MESSGAGE', data => {
+            this.setState({ messages: [data, ...this.state.messages] });
+        });
+    }
+
+    sendMessageToServer() {
+        const { txtMessage } = this.state;
+        this.socket.emit('CLIENT_SEND_MESSAGE', txtMessage);
+        this.setState({ txtMessage: '' });
     }
 
     render() {
@@ -21,16 +31,18 @@ export class Chat extends Component {
             <View style={styles.chatContainer}>
                 <View style={styles.messagesContainer}>
                     <Text>Messages</Text>
+                    { this.state.messages.map(message => <Text key={Math.random()}>{message}</Text>) }
                 </View>
                 <View style={styles.controlContainer}>
                     <TextInput
                         placeholder="Email"
                         style={styles.inputText}
                         autoCapitalize="none"
-                        onChangeText={text => this.setState({ txtEmail: text })}
+                        value={this.state.txtMessage}
+                        onChangeText={text => this.setState({ txtMessage: text })}
                         underlineColorAndroid="transparent"    
                     />
-                    <TouchableOpacity style={styles.buttonContainer} onPress={this.signIn}>
+                    <TouchableOpacity style={styles.buttonContainer} onPress={this.sendMessageToServer}>
                         <Text style={styles.buttonText}>Send</Text>
                     </TouchableOpacity>
                 </View>
