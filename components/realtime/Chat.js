@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, TextInput, ActivityIndicator, Alert, AsyncStorage } from 'react-native';
 import { signInApi } from '../../services/user.service';
+import io from 'socket.io-client';
 
 export class Chat extends Component {
     constructor(props) {
@@ -10,6 +11,11 @@ export class Chat extends Component {
         };
     }
     
+    componentDidMount() {
+        const socket = io.connect('https://chat1203.herokuapp.com/');
+        socket.on('NUM', data => console.log(data));
+    }
+
     render() {
         return (
             <View style={styles.chatContainer}>
