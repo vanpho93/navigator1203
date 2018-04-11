@@ -8,7 +8,7 @@ import { openPicker } from './api/openPicker';
 export class Camera extends Component {
     constructor(props) {
         super(props);
-        this.state = { imageSource: null };
+        this.state = { imageSource: null, fileInBase64: null };
         this.showPicker = this.showPicker.bind(this);
         this.uploadImage = this.uploadImage.bind(this);
     }
@@ -31,7 +31,7 @@ export class Camera extends Component {
     }
 
     showPicker() {
-        openPicker(source => this.setState({ imageSource: source }));
+        openPicker((source, data) => this.setState({ imageSource: source, fileInBase64: data }));
     }
 
     uploadImage() {
@@ -40,11 +40,14 @@ export class Camera extends Component {
             otherHeader: "foo",
             'Content-Type': 'multipart/form-data',
         };
-        const URL = 'http://www.example.com/upload-form';
-        const data = [{ name: 'name', data: 'user' }];
+        const URL = 'http://localhost:3000/upload';
+        const data = [
+            { name: 'name', data: 'user' },
+            { name: 'avatar', data: this.state.fileInBase64, filename: 'avatar.png' }
+        ];
         RNFetchBlob.fetch('POST', URL, options, data)
         .then(response => alert(JSON.stringify(response)))
-        .catch(error => alert('Error'));
+        .catch(error => console.log(error));
     }
 }
 

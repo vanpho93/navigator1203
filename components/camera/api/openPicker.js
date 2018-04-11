@@ -22,6 +22,6 @@ export function openPicker (cb) {
         const source = { uri: response.uri };
         // You can also display the image using data:
         // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-        cb(source);
+        cb(source, response.data);
     });
 }
