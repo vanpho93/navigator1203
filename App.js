@@ -5,12 +5,13 @@ import { StatusBar } from 'react-native';
 // import { Stack } from './components/realtime/Stack';
 // import { Drawer } from './components/Drawer';
 // import { Tab } from './components/Tab';
-import { Camera } from './components/camera/Camera';
+// import { Camera } from './components/camera/Camera';
+import { SimpleAnim } from './components/animation/SimpleAnim';
 
 StatusBar.setHidden(true);
 
 export default class App extends Component {
   render() {
-    return <Camera />;
+    return <SimpleAnim />;
   }
 }
