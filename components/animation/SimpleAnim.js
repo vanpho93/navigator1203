@@ -4,24 +4,38 @@ import { View, Text, StyleSheet, Animated } from 'react-native';
 
 export class SimpleAnim extends Component {
     state = { fadeAnim: new Animated.Value(0) }
-
     componentDidMount() {
         Animated.timing(
             this.state.fadeAnim,
             { toValue: 1, duration: 2000 }
         ).start();
     }
-
     render() {
         const opacity = this.state.fadeAnim;
+        const marginLeft = this.state.fadeAnim.interpolate({
+            inputRange: [0, 1],
+            outputRange: [-300, 0]
+        });
+        const backgroundColor = this.state.fadeAnim.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: ['green', 'yellow', 'red']
+        });
+        const rotateZ = this.state.fadeAnim.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: ['-30deg', '30deg', '0deg']
+        });
         return (
             <View style={styles.container}>
                 <Animated.View
                     style={{
-                        backgroundColor: 'lightblue',
+                        backgroundColor,
                         height: 150,
                         width: 200,
-                        opacity
+                        marginLeft,
+                        opacity,
+                        transform: [
+                            { rotateZ }
+                        ]
                     }}
                 />
             </View>
