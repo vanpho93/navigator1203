@@ -40,7 +40,7 @@ export class Camera extends Component {
             otherHeader: "foo",
             'Content-Type': 'multipart/form-data',
         };
-        const URL = 'http://localhost:3000/upload';
+        const URL = 'https://file1203.herokuapp.com/upload';
         const data = [
             { name: 'name', data: 'user' },
             { name: 'avatar', data: this.state.fileInBase64, filename: 'avatar.png' }
