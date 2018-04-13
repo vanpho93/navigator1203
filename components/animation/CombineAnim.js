@@ -6,18 +6,29 @@ import bellImage from '../../images/bell.png';
 export class CombineAnim extends Component {
     state = {
         slide1: new Animated.Value(0),
-        slide2: new Animated.Value(0)
+        slide2: new Animated.Value(0),
+        ringAnim: new Animated.Value(1)
     }
     componentDidMount() {
-        const anim1 = Animated.timing(
-            this.state.slide1,
-            { toValue: 1, duration: 2000, easing: Easing.bounce }
+        // const anim1 = Animated.timing(
+        //     this.state.slide1,
+        //     { toValue: 1, duration: 2000, easing: Easing.bounce }
+        // );
+        // const anim2 = Animated.timing(
+        //     this.state.slide2,
+        //     { toValue: 1, duration: 3000, easing: Easing.bounce }
+        // );
+        // Animated.parallel([anim1, anim2]).start();
+        const fromLeftToRight = Animated.timing(
+            this.state.ringAnim,
+            { toValue: -1, duration: 1000, easing: Easing.exp }
         );
-        const anim2 = Animated.timing(
-            this.state.slide2,
-            { toValue: 1, duration: 3000, easing: Easing.bounce }
+        const fromRightToLeft = Animated.timing(
+            this.state.ringAnim,
+            { toValue: 1, duration: 1000, easing: Easing.exp }
         );
-        Animated.parallel([anim1, anim2]).start();
+        const myAnim = Animated.sequence([fromLeftToRight, fromRightToLeft]);
+        Animated.loop(myAnim).start();
     }
     render() {
         const marginLeft1 = this.state.slide1.interpolate({
@@ -27,6 +38,10 @@ export class CombineAnim extends Component {
         const marginLeft2 = this.state.slide2.interpolate({
             inputRange: [0, 1],
             outputRange: [-300, 0]
+        });
+        const rotateZ = this.state.ringAnim.interpolate({
+            inputRange: [-1, 1],
+            outputRange: ['-30deg', '30deg']
         });
         return (
             <View style={styles.container}>
@@ -39,7 +54,10 @@ export class CombineAnim extends Component {
                     }}
                 /> */}
                 <View style={{ height: 10 }}></View>
-                <Animated.Image source={bellImage} style={{ width: 50, height: 50 }}/>
+                <Animated.Image
+                    source={bellImage}
+                    style={{ width: 50, height: 50, transform: [{ rotateZ }] }}
+                />
                 {/* <Animated.View
                     style={{
                         backgroundColor: 'yellow',
