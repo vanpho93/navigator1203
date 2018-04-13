@@ -7,11 +7,12 @@ import { StatusBar } from 'react-native';
 // import { Tab } from './components/Tab';
 // import { Camera } from './components/camera/Camera';
 import { SimpleAnim } from './components/animation/SimpleAnim';
+import { CombineAnim } from './components/animation/CombineAnim';
 
 StatusBar.setHidden(true);
 
 export default class App extends Component {
   render() {
-    return <SimpleAnim />;
+    return <CombineAnim />;
   }
 }

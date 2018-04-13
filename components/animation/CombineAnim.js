@@ -2,40 +2,43 @@ import React, { Component } from 'react';
 
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 
-export class SimpleAnim extends Component {
-    state = { fadeAnim: new Animated.Value(0) }
+export class CombineAnim extends Component {
+    state = {
+        slide1: new Animated.Value(0),
+        slide2: new Animated.Value(0)
+    }
     componentDidMount() {
         Animated.timing(
-            this.state.fadeAnim,
+            this.state.slide1,
             { toValue: 1, duration: 2000, easing: Easing.bounce }
         ).start();
     }
     render() {
-        const opacity = this.state.fadeAnim;
-        const marginLeft = this.state.fadeAnim.interpolate({
+        const marginLeft1 = this.state.slide1.interpolate({
             inputRange: [0, 1],
             outputRange: [-300, 0]
         });
-        const backgroundColor = this.state.fadeAnim.interpolate({
-            inputRange: [0, 0.5, 1],
-            outputRange: ['green', 'yellow', 'red']
-        });
-        const rotateZ = this.state.fadeAnim.interpolate({
-            inputRange: [0, 0.5, 1],
-            outputRange: ['-30deg', '30deg', '0deg']
+        const marginLeft2 = this.state.slide2.interpolate({
+            inputRange: [0, 1],
+            outputRange: [-300, 0]
         });
         return (
             <View style={styles.container}>
                 <Animated.View
                     style={{
-                        backgroundColor,
+                        backgroundColor: 'green',
                         height: 150,
                         width: 200,
-                        marginLeft,
-                        opacity,
-                        transform: [
-                            { rotateZ }
-                        ]
+                        marginLeft: marginLeft1,
+                    }}
+                />
+                <View style={{ height: 10 }}></View>
+                <Animated.View
+                    style={{
+                        backgroundColor: 'green',
+                        height: 150,
+                        width: 200,
+                        marginLeft: marginLeft2,
                     }}
                 />
             </View>
@@ -48,7 +51,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#7A609C'
+        backgroundColor: 'lightblue'
     },
     buttonContainer: {
         backgroundColor: '#117ACC',
