@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 
-import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
+import { View, Text, StyleSheet, Animated, Easing, TouchableOpacity } from 'react-native';
 import bellImage from '../../images/bell.png';
 
 export class CombineAnim extends Component {
+    constructor(props) {
+        super(props);
+        this.stop = this.stop.bind(this);
+        this.start = this.start.bind(this);
+    }
     state = {
         slide1: new Animated.Value(0),
         slide2: new Animated.Value(0),
@@ -29,6 +34,7 @@ export class CombineAnim extends Component {
         );
         const myAnim = Animated.sequence([fromLeftToRight, fromRightToLeft]);
         Animated.loop(myAnim).start();
+        this.myAnim = myAnim;
     }
     render() {
         const marginLeft1 = this.state.slide1.interpolate({
@@ -58,6 +64,12 @@ export class CombineAnim extends Component {
                     source={bellImage}
                     style={{ width: 50, height: 50, transform: [{ rotateZ }] }}
                 />
+                <TouchableOpacity style={styles.buttonContainer} onPress={this.stop}>
+                    <Text style={styles.buttonText}>Stop</Text>
+                </TouchableOpacity>
+                <TouchableOpacity  style={styles.buttonContainer} onPress={this.start}>
+                    <Text style={styles.buttonText}>Start</Text>
+                </TouchableOpacity>
                 {/* <Animated.View
                     style={{
                         backgroundColor: 'yellow',
@@ -68,6 +80,14 @@ export class CombineAnim extends Component {
                 /> */}
             </View>
         );
+    }
+
+    stop() {
+        if (this.myAnim) this.myAnim.stop();
+    }
+
+    start() {
+        if (this.myAnim) this.myAnim.start();
     }
 }
 
