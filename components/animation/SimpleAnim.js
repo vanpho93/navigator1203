@@ -1,12 +1,29 @@
 import React, { Component } from 'react';
 
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 
 export class SimpleAnim extends Component {
+    state = { fadeAnim: new Animated.Value(0) }
+
+    componentDidMount() {
+        Animated.timing(
+            this.state.fadeAnim,
+            { toValue: 1, duration: 2000 }
+        ).start();
+    }
+
     render() {
+        const opacity = this.state.fadeAnim;
         return (
             <View style={styles.container}>
-                <Text style={styles.buttonText}>Animation React Native</Text>
+                <Animated.View
+                    style={{
+                        backgroundColor: 'lightblue',
+                        height: 150,
+                        width: 200,
+                        opacity
+                    }}
+                />
             </View>
         );
     }
